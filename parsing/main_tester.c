@@ -1,7 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_tester.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/31 17:00:23 by lrichaud          #+#    #+#             */
+/*   Updated: 2024/01/31 17:00:46 by lrichaud         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../so_long.h"
 
-int main(int argc, char const *argv[])
+int	main(void)
 {
-	map_tester(argv[1]);
-	return 0;
+	if (map_tester("map.ber"))
+	{
+		printf("Error\n");
+		return (1);
+	}
+	return (0);
 }
