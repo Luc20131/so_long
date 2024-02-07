@@ -13,7 +13,7 @@ RED="\033[0;31m"
 BLUE="\033[0;34m"
 END_COLOUR="\033[0m"
 
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re parsing
 
 $(NAME) : compil $(OBJ)
 	@cd ./libft && make && cd ..
@@ -46,5 +46,5 @@ re :
 	$(MAKE) fclean
 	$(MAKE) all
 
-bonus :
-
+parsing :
+	cd parsing/ && cc -Wall -Wextra -Werror  main_tester.c test_map.c way_checker.c ../get_next_line/*.c -L ../so_long.h ../get_next_line/get_next_line.h ../libft/libft.h -g3 && ./a.out

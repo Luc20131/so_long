@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:17:45 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/02 00:20:14 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/07 06:56:18 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,46 +14,47 @@
 #include <fcntl.h>
 #include "../so_long.h"
 
-typedef	struct s_content
-{
-	int	coins;
-	int	exit;
-	int	carac;
-}	t_content;
-
 int	wall_line(char *line);
 
 int	map_tester(char	*map_path)
 {
-	int	fd;
+	int			fd;
+	int			nb_line;
+	t_content	content;
 
-	fd = open(map_path, O_RDONLY);
-	if (fd == -1)
-		return (1);
-	if (wall_checker(fd))
-		return (1);
-	return (0);
-}
-
-ssize_t	check_line(ssize_t last_size, char *line)
-{
-	int					size;
-	size_t				i;
-	static t_content	content;
-
-	i = 0;
 	content.carac = 0;
 	content.coins = 0;
 	content.exit = 0;
+	nb_line = 0;
+	fd = open(map_path, O_RDONLY);
+	if (fd == -1)
+		return (1);
+	if (wall_checker(fd, &nb_line, &content))
+		return (1);
+	close(fd);
+	if (content.carac != 1 || content.coins < 1 || content.exit != 1)
+		return (1);
+	fd = open(map_path, O_RDONLY);
+	way_checker(fd, nb_line);
+	close(fd);
+	return (0);
+}
+
+ssize_t	check_line(ssize_t last_size, char *line, t_content *content)
+{
+	int		size;
+	size_t	i;
+
+	i = 0;
 	size = ft_strlen(line);
 	while (line[i] != '\0')
 	{
 		if (line[i] == 'C')
-			content.coins++;
+			content->coins += 1;
 		if (line[i] == 'E')
-			content.exit++;
+			content->exit += 1;
 		if (line[i] == 'P')
-			content.carac++;
+			content->carac += 1;
 		i++;
 	}
 	if (size == last_size && line[0] == '1' && line[size - 2] == '1')
@@ -62,29 +63,35 @@ ssize_t	check_line(ssize_t last_size, char *line)
 		return (-1);
 }
 
-int	wall_checker(int fd)
+int	wall_checker(int fd, int *nb_line, t_content *content)
 {
 	char	*line;
 	char	*line_buffer;
 	ssize_t	last_size;
+	int		temp;
 
 	line = get_next_line(fd);
 	if (line == NULL)
 		return (1);
+	*nb_line += 1;
 	last_size = ft_strlen(line);
 	if (wall_line(line))
-		return (1);
+		return (free(line), 1);
 	while (line != NULL)
 	{
 		line_buffer = ft_strdup(line);
+		free(line);
 		line = get_next_line(fd);
-		if (line == NULL && wall_line(line_buffer))
-			return (free(line_buffer), 1);
 		if (line == NULL)
-			return (free(line_buffer), 0);
-		last_size = check_line(last_size, line);
+		{
+			temp = wall_line(line_buffer);
+			return (free(line_buffer),temp);
+		}
+		*nb_line += 1;
+		last_size = check_line(last_size, line, content);
 		if (last_size == -1)
-			return (free(line_buffer), 1);
+			return (free(line), free(line_buffer), 1);
+		free(line_buffer);
 	}
 	return (0);
 }

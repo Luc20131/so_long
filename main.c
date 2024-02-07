@@ -3,7 +3,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "so_long.h"
+// #include "so_long.h"
 
 typedef struct s_data
 {
@@ -51,7 +51,6 @@ int	main(void)
 	t_data	image;
 	char	*rel_path;
 
-	map_tester("tests_map/basictest.fdf");
 	rel_path = "images.xpm";
 	vars.h = 500;
 	vars.w = 500;
@@ -62,4 +61,3 @@ int	main(void)
 	mlx_key_hook(vars.win, key_hook, &vars);
 	mlx_loop(vars.mlx);
 }
-
