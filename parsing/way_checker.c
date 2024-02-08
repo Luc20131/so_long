@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 01:03:59 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/07 13:14:56 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/08 21:01:26 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,26 @@
 char	**map_to_array(int fd, size_t nb_line);
 void	free_map(char ***map);
 char ***map_creator(size_t nb_line);
+char	***map_filler(int fd, char ***map);
 
 int	way_checker(int fd, int nb_line)
 {
 	char	***map;
-	// size_t	i;
+	size_t	i;
 	printf("%d", fd);
-	// i = 0;
+	i = 0;
 	// map = map_to_array(fd, nb_line);
 	map = map_creator(nb_line);
+	map = map_filler(fd, map);
 	if (map == NULL)
 		return (1);
-	free_map(map);
+	while (map[i][0] != NULL)
+	{
+		printf("%s", map[i][0]);
+		i++;
+	}
+	
+	// free_map(map);
 	return (0);
 }
 
@@ -64,7 +72,7 @@ void	free_map(char ***map)
 	size_t	i;
 
 	i = 0;
-	while (map[i])
+	while (map[i][0])
 	{
 		free(map[i][0]);
 		free(map[i][1]);
@@ -78,7 +86,8 @@ char	***map_creator(size_t nb_line)
 {
 	char	***map;
 	size_t	i;
-
+	size_t	size;
+	
 	i = 0;
 	map = malloc((nb_line + 1) * sizeof(char **));
 	if (map == NULL)
@@ -91,10 +100,28 @@ char	***map_creator(size_t nb_line)
 			return (free_map(map), NULL);
 		i++;
 	}
+	size = ft_strlen(map[0][0]);
+	map[size] = NULL;
 	return (map);
 }
 
-char	***map_filler()
+char	***map_filler(int fd, char ***map)
 {
-	
+	int		i;
+	char	*line;
+
+i = 0;
+	line = get_next_line(fd);
+	if (line == NULL)
+		return (NULL);
+	while (line != NULL)
+	{
+		map[i][0] = ft_strdup(line);
+		free(line);
+		if (map[i] == NULL)
+			return (free_map(map), NULL);
+		line = get_next_line(fd);
+		i++;
+	}
+	return (map);
 }
