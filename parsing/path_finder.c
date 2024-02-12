@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:10:18 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/12 15:52:52 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/12 18:55:58 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,21 +107,21 @@ void	print_map(char ***map, size_t layer)
 
 	i = 0;
 	y = 0;
-	printf("\033\033[H");
+	ft_printf("\033\033[H");
 	while (map[i])
 	{
 		while (map[i][layer][y])
 		{
 			if (map[i][layer][y] == 'V')
-				printf("\033[0;32m");
+				ft_printf("\033[0;32m");
 			else if (map[i][layer][y] == 'P')
-				printf("\033[0;33m");
+				ft_printf("\033[0;33m");
 			else if (map[i][layer][y] == '0')
-				printf("\033[0;35m");
+				ft_printf("\033[0;35m");
 			else if (map[i][layer][y] == 'C')
-				printf("\033[0;31m");
-			printf("%c", map[i][layer][y]);
-			printf("\033[0m");
+				ft_printf("\033[0;31m");
+			ft_printf("%c", map[i][layer][y]);
+			ft_printf("\033[0m");
 			y++;
 		}
 		y = 0;
