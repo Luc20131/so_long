@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 17:00:23 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/01/31 17:00:46 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/12 15:20:11 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(void)
 {
 	if (map_tester("map.ber"))
 	{
-		printf("Error\n");
+		write(2, "Error\n",6);
 		return (1);
 	}
 	return (0);

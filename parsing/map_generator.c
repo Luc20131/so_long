@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 01:03:59 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/09 10:19:16 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/12 15:17:48 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int	map_generator(int fd, int nb_line)
 	map = map_filler(fd, map);
 	if (map == NULL)
 		return (1);
-	path_finder(map);
-	free_map(map);
-	return (0);
+	
+	// free_map(map);
+	return (path_finder(map));
 }
 
 void	free_map(char ***map)

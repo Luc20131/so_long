@@ -21,7 +21,12 @@ do
 					if [ $y == 0 ] || [ $y == $(($HEIGHT - 1)) ]; then
 						map[$y,$x,$z]=1
 					else
-						map[$y,$x,$z]=0
+						rand=$((RANDOM% 100 + 1))
+						if [ $rand -gt 70 ]; then
+							map[$y,$x,$z]=1
+						else
+							map[$y,$x,$z]=0
+						fi
 					fi
 				fi
 			else

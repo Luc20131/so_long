@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:17:45 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/07 06:56:18 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/12 15:18:54 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ int	map_tester(char	*map_path)
 	if (content.carac != 1 || content.coins < 1 || content.exit != 1)
 		return (1);
 	fd = open(map_path, O_RDONLY);
-	way_checker(fd, nb_line);
+	if (map_generator(fd, nb_line))
+		return (close(fd), 1);
 	close(fd);
 	return (0);
 }
