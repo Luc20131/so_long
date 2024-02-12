@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:42:35 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/10 12:08:47 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/12 15:59:01 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define SO_LONG_H
 # include "get_next_line/get_next_line.h"
 # include "libft/libft.h"
+// # include "libft/ft_printf/ft_printf.h"
 
 typedef struct s_content
 {
