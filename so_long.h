@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:42:35 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/05 07:03:49 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/10 12:08:47 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,16 @@ typedef struct s_content
 	int	carac;
 }	t_content;
 
+typedef struct s_pos
+{
+	int	x;
+	int	y;
+}	t_pos;
+
 int	map_tester(char	*map_path);
 int	wall_checker(int fd, int *nb_line, t_content *content);
-int	way_checker(int fd, int nb_line);
+int	map_generator(int fd, int nb_line);
+int	path_finder(char ***map);
+
 
 #endif
