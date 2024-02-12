@@ -2,7 +2,7 @@
 
 WIDTH=$1
 HEIGHT=$2
-NBR_COINS=$((RANDOM % (($WIDTH - 2) * ($HEIGHT - 2) / 10) + 1))
+NBR_COINS=$((RANDOM % ((($WIDTH - 2) * ($HEIGHT - 2) + 10) / 10) + 1))
 
 rm map.ber
 touch	map.ber

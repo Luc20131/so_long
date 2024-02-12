@@ -47,4 +47,4 @@ re :
 	$(MAKE) all
 
 parsing :
-	cd parsing/ && cc -Wall -Wextra -Werror  main_tester.c test_map.c way_checker.c ../get_next_line/*.c -L ../so_long.h ../get_next_line/get_next_line.h ../libft/libft.h -g3 && ./a.out
+	cd parsing/ && cc -Wall -Wextra -Werror  main_tester.c test_map.c map_generator.c path_finder.c ../get_next_line/*.c -L ../so_long.h ../get_next_line/get_next_line.h ../libft/libft.h -g3 && ./a.out
