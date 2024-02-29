@@ -6,16 +6,16 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:10:18 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/12 18:55:58 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 05:30:25 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
 void	print_map(char ***map, size_t layer);
-t_pos	carac_finder(t_pos pos_carac, char ***map);
 int		path_filler(t_pos pos_carac, char ***map);
 void	neighbour_checker(char ***map, size_t x, size_t y);
+void	setup_final_wall(char ***map);
 
 int	path_finder(char ***map)
 {
@@ -51,26 +51,22 @@ int	path_filler(t_pos pos_carac, char ***map)
 	size_t	y;
 	size_t	i;
 
-	i = 0;
-	y = 0;
+	i = 1;
 	neighbour_checker(map, pos_carac.x, pos_carac.y);
 	while (map[i])
 	{
+		y = 1;
 		while (map[i][1][y])
 		{
 			if (map[i][1][y] == 'C' || map[i][1][y] == 'E')
-				return (1);
-			if (map[i][1][y] == '0')
-			{
-				map[i][1][y] = '1';
-				map[i][0][y] = '1';
-			}
+				return (42);
+			map_formating(map, i, y);
+			if (map[i][0][y] == 'E')
+				map[i][1][y] = 'E';
 			y++;
 		}
-		y = 0;
 		i++;
 	}
-	print_map(map, 1);
 	return (0);
 }
 
@@ -80,16 +76,19 @@ void	neighbour_checker(char ***map, size_t x, size_t y)
 	{
 		if (map[y][1][x] == 'A')
 			map[y][1][x] = 'V';
-		if (map[y][1][x - 1] != '1' && map[y][1][x - 1] != 'V' && map[y][1][x - 1] != 'P')
+		if (map[y][1][x - 1] != '1' && \
+			map[y][1][x - 1] != 'V' && map[y][1][x - 1] != 'P')
 			map[y][1][x - 1] = 'A';
-		if (map[y - 1][1][x] != '1' && map[y - 1][1][x] != 'V' && map[y - 1][1][x] != 'P')
-			map[y - 1][1][x] = 'A';
-		if (map[y + 1][1][x] != '1' && map[y + 1][1][x] != 'V' && map[y + 1][1][x] != 'P')
-			map[y + 1][1][x] = 'A';
-		if (map[y][1][x + 1] != '1' && map[y][1][x + 1] != 'V' && map[y][1][x + 1] != 'P')
+		if (map[y][1][x + 1] != '1' && \
+			map[y][1][x + 1] != 'V' && map[y][1][x + 1] != 'P')
 			map[y][1][x + 1] = 'A';
+		if (map[y - 1][1][x] != '1' && \
+			map[y - 1][1][x] != 'V' && map[y - 1][1][x] != 'P')
+			map[y - 1][1][x] = 'A';
+		if (map[y + 1][1][x] != '1' && \
+			map[y + 1][1][x] != 'V' && map[y + 1][1][x] != 'P')
+			map[y + 1][1][x] = 'A';
 	}
-	print_map(map, 1);
 	if (map[y - 1][1][x] == 'A')
 		neighbour_checker(map, x, y - 1);
 	if (map[y][1][x + 1] == 'A')
@@ -100,31 +99,31 @@ void	neighbour_checker(char ***map, size_t x, size_t y)
 		neighbour_checker(map, x - 1, y);
 }
 
-void	print_map(char ***map, size_t layer)
+void	setup_final_wall(char ***map)
 {
-	size_t	y;
-	size_t	i;
+	ssize_t	y;
+	ssize_t	x;
 
-	i = 0;
-	y = 0;
-	ft_printf("\033\033[H");
-	while (map[i])
+	y = -1;
+	while (map[++y])
 	{
-		while (map[i][layer][y])
+		x = 0;
+		while (map[y][0][x])
 		{
-			if (map[i][layer][y] == 'V')
-				ft_printf("\033[0;32m");
-			else if (map[i][layer][y] == 'P')
-				ft_printf("\033[0;33m");
-			else if (map[i][layer][y] == '0')
-				ft_printf("\033[0;35m");
-			else if (map[i][layer][y] == 'C')
-				ft_printf("\033[0;31m");
-			ft_printf("%c", map[i][layer][y]);
-			ft_printf("\033[0m");
-			y++;
+			if (map[y][0][x] == '1')
+			{
+				if (x - 1 >= 0 && map[y][0][x - 1] != 'V')
+					map[y][0][x] += 2;
+				if (y - 1 >= 0 && map[y - 1][0][x] != 'V')
+					map[y][0][x] += 4;
+				if (map[y + 1] && map[y + 1][0][x] == '1')
+					map[y][0][x] += 8;
+				if (map[y][0][x + 1] == '1')
+					map[y][0][x] += 16;
+				if (map[y][0][x] != '1')
+					map[y][0][x]--;
+			}
+			x++;
 		}
-		y = 0;
-		i++;
 	}
 }

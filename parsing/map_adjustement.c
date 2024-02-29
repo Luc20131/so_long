@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_tester.c                                      :+:      :+:    :+:   */
+/*   map_adjustement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/31 17:00:23 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/12 15:20:11 by lrichaud         ###   ########lyon.fr   */
+/*   Created: 2024/02/29 05:25:58 by lrichaud          #+#    #+#             */
+/*   Updated: 2024/02/29 05:29:36 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	main(void)
+void	map_formating(char ***map, size_t i, size_t y)
 {
-	if (map_tester("map.ber"))
+	if (map[i][1][y] == '0')
 	{
-		write(2, "Error\n",6);
-		return (1);
+		map[i][1][y] = '1';
+		map[i][0][y] = '1';
 	}
-	return (0);
+	if (i > 1 && y > 1 && map[i][1][y] == '1' && map[i + 1] \
+		&& map[i - 1][1][y] == '1' && map[i - 1][1][y - 1] == '1' \
+		&& map[i][1][y - 1] == '1' && map[i][1][y + 1] != '\n')
+	{
+		map[i][1][y] = '2';
+		map[i - 1][1][y] = '2';
+		map[i - 1][1][y - 1] = '2';
+		map[i][1][y - 1] = '2';
+	}
 }

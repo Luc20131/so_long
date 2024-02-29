@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_generator.c                                    :+:      :+:    :+:   */
+/*   map_initialitizer.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 01:03:59 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/12 17:53:03 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 05:20:56 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,22 @@
 #include <fcntl.h>
 #include "../so_long.h"
 
-char	**map_to_array(int fd, size_t nb_line);
-void	free_map(char ***map);
-char	***map_creator(size_t nb_line);
-char	***map_filler(int fd, char ***map);
+static char	***map_creator(size_t nb_line);
+static char	***map_filler(int fd, char ***map);
 
-int	map_generator(int fd, int nb_line)
+char	***map_initializer(int fd, int nb_line)
 {
 	char	***map;
 
 	map = map_creator(nb_line);
 	if (map == NULL)
-		return (1);
+		return (NULL);
 	map = map_filler(fd, map);
 	if (map == NULL)
-		return (1);
-	
-	// free_map(map);
-	return (path_finder(map));
+		return (NULL);
+	if (path_finder(map))
+		return (NULL);
+	return (map);
 }
 
 void	free_map(char ***map)
@@ -54,7 +52,7 @@ void	free_map(char ***map)
 	free(map);
 }
 
-char	***map_creator(size_t nb_line)
+static char	***map_creator(size_t nb_line)
 {
 	char	***map;
 	size_t	i;
@@ -66,7 +64,7 @@ char	***map_creator(size_t nb_line)
 	map[nb_line] = NULL;
 	while (i < nb_line)
 	{
-		map[i] = malloc( 2 * sizeof(char *));
+		map[i] = malloc(2 * sizeof(char *));
 		if (map[i] == NULL)
 			return (free_map(map), NULL);
 		i++;
@@ -74,7 +72,7 @@ char	***map_creator(size_t nb_line)
 	return (map);
 }
 
-char	***map_filler(int fd, char ***map)
+static char	***map_filler(int fd, char ***map)
 {
 	int		i;
 	char	*line;
