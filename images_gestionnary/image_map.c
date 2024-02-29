@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 04:36:00 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/29 14:36:07 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 18:03:04 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,8 +101,8 @@ void	print_content(t_vars *v, int t_x, int t_y)
 	{
 		x = -1;
 		while (++x < 32)
-			put_pixel_img(v->tile[23], (t_x * 64) + x + 16, \
-				(t_y * 64) + y + 8, get_pixel_img(v->tile[19], x, y));
+			put_pixel_img(v->tile[23], (t_x * 64) + x + 16, (t_y * 64) \
+			+ y + 8, get_pixel_img(v->tile[19 + v->link_side], x, y));
 	}
 	while (++y < 38 && v->map[t_y][0][t_x] == 'E')
 	{

@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 04:57:53 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/29 12:19:29 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 17:28:42 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	main(int argc, char *argv[])
 	size_window = size_map(v.map);
 	v.mlx = mlx_init();
 	v.win = mlx_new_window(v.mlx, size_window.x, size_window.y, "fenetre");
+	v.link_side = 0;
 	images_for_map(&v);
 	images_for_link(&v);
 	img_map_initializer(&v, v.map);

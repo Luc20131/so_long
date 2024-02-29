@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 04:59:59 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/29 14:35:59 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/02/29 17:27:22 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,11 @@ void	images_for_link(t_vars *v)
 	v->tile[19] = new_img("img/link_face.xpm", *v);
 	v->h = 48;
 	v->w = 32;
-	v->tile[20] = new_img("img/link_back.xpm", *v);
+	v->tile[21] = new_img("img/link_back.xpm", *v);
 	v->h = 48;
 	v->w = 32;
-	v->tile[21] = new_img("img/link_left.xpm", *v);
+	v->tile[22] = new_img("img/link_left.xpm", *v);
 	v->h = 48;
 	v->w = 32;
-	v->tile[22] = new_img("img/link_right.xpm", *v);
+	v->tile[20] = new_img("img/link_right.xpm", *v);
 }

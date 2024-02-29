@@ -1,7 +1,7 @@
 /* XPM */
 static char * link_right_xpm[] = {
 "32 44 15 1",
-" 	c None",
+" 	c #489848",
 ".	c #282828",
 "+	c #78B820",
 "@	c #509010",
