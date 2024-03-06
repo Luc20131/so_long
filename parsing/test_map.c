@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:17:45 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/28 22:57:06 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/04 23:44:52 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,15 @@ char	***map_tester(char	*map_path)
 	if (fd == -1)
 		return (NULL);
 	if (wall_checker(fd, &nb_line, &content))
-		return (NULL);
+		return (perror("Error\nWall error"), NULL);
 	close(fd);
 	if (content.carac != 1 || content.coins < 1 || content.exit != 1)
-		return (NULL);
+		return (perror("Error\nContent Error"), NULL);
 	fd = open(map_path, O_RDONLY);
 	map = map_initializer(fd, nb_line);
 	close(fd);
 	if (map == NULL)
-		return (NULL);
+		return (perror("Error\nMap Initialisation Failed"), NULL);
 	return (map);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 04:57:53 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/29 17:28:42 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/06 18:20:51 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,23 +52,22 @@ int	main(int argc, char *argv[])
 	check_file_error(argc, argv);
 	v.map = map_tester(argv[1]);
 	if (v.map == NULL)
-	{
-		perror("Map error");
 		exit(1);
-	}
 	size_window = size_map(v.map);
 	v.mlx = mlx_init();
-	v.win = mlx_new_window(v.mlx, size_window.x, size_window.y, "fenetre");
-	v.link_side = 0;
 	images_for_map(&v);
 	images_for_link(&v);
+	v.win = mlx_new_window(v.mlx, size_window.x, size_window.y, "fenetre");
+	v.link_side = 0;
 	img_map_initializer(&v, v.map);
 	mlx_put_image_to_window(v.mlx, v.win, v.tile[23].img, 0, 0);
 	mlx_key_hook(v.win, key_hook, &v);
+	mlx_hook(v.win, DestroyNotify, StructureNotifyMask, &closer, &v);
 	mlx_loop(v.mlx);
+	return (0);
 }
 
-int	chest_checker(t_vars *v, size_t checker)
+static void	chest_checker(t_vars *v, size_t checker)
 {
 	size_t	x;
 	size_t	y;
@@ -87,7 +86,6 @@ int	chest_checker(t_vars *v, size_t checker)
 		}
 		y++;
 	}
-	return (0);
 }
 
 char	***map_refresher(t_vars *v)

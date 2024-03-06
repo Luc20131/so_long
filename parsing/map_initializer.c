@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_initialitizer.c                                :+:      :+:    :+:   */
+/*   map_initializer.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 01:03:59 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/29 05:20:56 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/05 02:29:28 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,9 @@ static char	***map_filler(int fd, char ***map)
 		map[i][0] = ft_strdup(line);
 		map[i][1] = ft_strdup(line);
 		free(line);
-		if (map[i] == NULL)
+		if (map[i][0] == NULL)
+			return (free_map(map), NULL);
+		if (map[i][1] == NULL)
 			return (free_map(map), NULL);
 		line = get_next_line(fd);
 		i++;

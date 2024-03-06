@@ -6,45 +6,45 @@ NBR_COINS=$((RANDOM % ((($WIDTH - 2) * ($HEIGHT - 2) + 10) / 10) + 1))
 
 #!/bin/bash
 
-# Définition de la fonction neighbour_checker
-neighbour_checker() {
-    # Arguments: map, x, y
+# # Définition de la fonction neighbour_checker
+# neighbour_checker() {
+#     # Arguments: map, x, y
 
-	map=$1
-    local x=$2
-    local y=$3
-	printf "${map[$y,$x,1]}"
+# 	map=$1
+#     local x=$2
+#     local y=$3
+# 	printf "${map[$y,$x,1]}"
 
-    if [[ ${map[$y,$x,1]} == "A" || ${map[$y,$x,1]} == "P" ]]; then
-        if [[ ${map[$y][$x][1]} == 'A' ]]; then
-            map[$y][$x][1]='V'
-        fi
-        if [[ ${map[$y,$((x - 1)),1]} != '1' && ${map[$y,$((x - 1)),1]} != 'V' && ${map[$y,$((x - 1)),1]} != 'P' ]]; then
-            map[$y][$((x - 1))][1] ='A'
-        fi
-        if [[ map[$((y - 1))][$x][1] != '1' && map[$((y - 1))][$x][1] != 'V' && map[$((y - 1))][$x][1] != 'P' ]]; then
-            map[$((y - 1))][$x][1] ='A'
-        fi
-        if [[ map[$((y + 1))][$x][1] != '1' && map[$((y + 1))][$x][1] != 'V' && map[$((y + 1))][$x][1] != 'P' ]]; then
-            map[$((y + 1))][$x][1] ='A'
-        fi
-        if [[ ${map[$y][1]:$((x + 1)):1} != '1' && ${map[$y][1]:$((x + 1)):1} != 'V' && ${map[$y][1]:$((x + 1)):1} != 'P' ]]; then
-            map[$y][$((x + 1))][1] ='A'
-        fi
-    fi
-    if [[ map[$((y - 1))][$x][1] == 'A' ]]; then
-        neighbour_checker $map $x $((y - 1))
-    fi
-    if [[ map[$y][$((x + 1))][1] == 'A' ]]; then
-        neighbour_checker $map $((x + 1)) $y
-    fi
-    if [[ map[$((y + 1))][$x][1] == 'A' ]]; then
-        neighbour_checker $map $x $((y + 1))
-    fi
-    if [[ map[$y][$((x - 1))][1] == 'A' ]]; then
-        neighbour_checker $map $((x - 1)) $y
-    fi
-}
+#     if [[ ${map[$y,$x,1]} == "A" || ${map[$y,$x,1]} == "P" ]]; then
+#         if [[ ${map[$y][$x][1]} == 'A' ]]; then
+#             map[$y][$x][1]='V'
+#         fi
+#         if [[ ${map[$y,$((x - 1)),1]} != '1' && ${map[$y,$((x - 1)),1]} != 'V' && ${map[$y,$((x - 1)),1]} != 'P' ]]; then
+#             map[$y][$((x - 1))][1] ='A'
+#         fi
+#         if [[ map[$((y - 1))][$x][1] != '1' && map[$((y - 1))][$x][1] != 'V' && map[$((y - 1))][$x][1] != 'P' ]]; then
+#             map[$((y - 1))][$x][1] ='A'
+#         fi
+#         if [[ map[$((y + 1))][$x][1] != '1' && map[$((y + 1))][$x][1] != 'V' && map[$((y + 1))][$x][1] != 'P' ]]; then
+#             map[$((y + 1))][$x][1] ='A'
+#         fi
+#         if [[ ${map[$y][1]:$((x + 1)):1} != '1' && ${map[$y][1]:$((x + 1)):1} != 'V' && ${map[$y][1]:$((x + 1)):1} != 'P' ]]; then
+#             map[$y][$((x + 1))][1] ='A'
+#         fi
+#     fi
+#     if [[ map[$((y - 1))][$x][1] == 'A' ]]; then
+#         neighbour_checker $map $x $((y - 1))
+#     fi
+#     if [[ map[$y][$((x + 1))][1] == 'A' ]]; then
+#         neighbour_checker $map $((x + 1)) $y
+#     fi
+#     if [[ map[$((y + 1))][$x][1] == 'A' ]]; then
+#         neighbour_checker $map $x $((y + 1))
+#     fi
+#     if [[ map[$y][$((x - 1))][1] == 'A' ]]; then
+#         neighbour_checker $map $((x - 1)) $y
+#     fi
+# }
 
 rm map.ber
 touch	map.ber

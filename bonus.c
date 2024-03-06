@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 05:14:54 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/29 05:15:04 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/05 00:00:40 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	print_map(char ***map, size_t layer)
 
 	i = 0;
 	y = 0;
+	ft_printf("\033[H");
 	while (map[i])
 	{
 		while (map[i][layer][y])
