@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 04:36:00 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/29 18:03:04 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 13:36:09 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ void	img_map_initializer(t_vars *v, char ***map)
 
 	size_window = size_map(v->map);
 	v->tile[23].img = mlx_new_image(v->mlx, size_window.x, size_window.y);
+	if (!v->tile[23].img)
+		ft_close(v);
 	v->tile[23].addr = mlx_get_data_addr(v->tile[23].img, \
 	&v->tile[23].bits_per_pixel, &v->tile[23].line_length, &v->tile[23].endian);
 	v->tile[23].h = size_window.y;
@@ -118,6 +120,5 @@ void	stepper(void)
 	static int	step = 0;
 
 	step++;
-	ft_putnbr_fd(step, 1);
-	write(1, "\n", 1);
+	ft_printf("%d\n", step);
 }

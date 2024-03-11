@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 04:57:53 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/06 18:20:51 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 04:23:56 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,16 @@ int	main(int argc, char *argv[])
 		exit(1);
 	size_window = size_map(v.map);
 	v.mlx = mlx_init();
+	if (!v.mlx)
+	{
+		perror("Error Mlx Initialisation");
+		ft_close(&v);
+	}
+	v.win = mlx_new_window(v.mlx, size_window.x, size_window.y, "So Long");
 	images_for_map(&v);
 	images_for_link(&v);
-	v.win = mlx_new_window(v.mlx, size_window.x, size_window.y, "fenetre");
-	v.link_side = 0;
+	if (checker_images(&v))
+		ft_close(&v);
 	img_map_initializer(&v, v.map);
 	mlx_put_image_to_window(v.mlx, v.win, v.tile[23].img, 0, 0);
 	mlx_key_hook(v.win, key_hook, &v);

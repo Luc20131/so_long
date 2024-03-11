@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 17:09:18 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/05 17:09:34 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/07 19:00:40 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	closer(t_vars *v)
 {
-	mlx_destroy_image(v->mlx, v->tile[23].img);
 	ft_close(v);
 	return (0);
 }

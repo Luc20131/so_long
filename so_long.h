@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:42:35 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/05 17:10:33 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/11 13:26:24 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_pos			carac_finder(t_pos pos_carac, char ***map);
 char			***map_refresher(t_vars *v);
 int				random_tree(int y, int x);
 int				wall_selector(char ***map, int y, int x);
-t_data			new_img(char *path, t_vars v);
+t_data			new_img(char *path, t_vars *v);
 void			img_map_initializer(t_vars *v, char ***map);
 int				tile_selector(char ***map, int y, int x);
 int				pseudo_random_percent(int y, int x);
@@ -89,5 +89,6 @@ void			images_for_link(t_vars *v);
 void			stepper(void);
 void			map_formating(char ***map, size_t i, size_t y);
 int				closer(t_vars *v);
+int				checker_images(t_vars *v);
 
 #endif
