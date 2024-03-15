@@ -6,12 +6,10 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 01:03:59 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/05 02:29:28 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/15 06:48:26 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <fcntl.h>
 #include "../so_long.h"
 
 static char	***map_creator(size_t nb_line);
@@ -28,7 +26,7 @@ char	***map_initializer(int fd, int nb_line)
 	if (map == NULL)
 		return (NULL);
 	if (path_finder(map))
-		return (NULL);
+		return (print_map(map, 1), NULL);
 	return (map);
 }
 
@@ -95,3 +93,4 @@ static char	***map_filler(int fd, char ***map)
 	}
 	return (map);
 }
+

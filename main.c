@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 04:57:53 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/11 04:23:56 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/15 16:17:50 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ void	check_file_error(int argc, char *argv[])
 {
 	if (argc != 2 || argv[1] == NULL)
 	{
-		perror("Args Error");
-		exit(1);
+		write(1, "Error\nArgs Error", 16);
+		exit(EXIT_FAILURE);
 	}
 	if (!ft_strnstr(argv[1], ".ber\0", ft_strlen(argv[1])))
 	{
-		perror("Extention Error");
-		exit(1);
+		write(1, "Error\nExtention Error\n", 21);
+		exit(EXIT_FAILURE);
 	}
 }
 
@@ -52,7 +52,7 @@ int	main(int argc, char *argv[])
 	check_file_error(argc, argv);
 	v.map = map_tester(argv[1]);
 	if (v.map == NULL)
-		exit(1);
+		return (EXIT_FAILURE);
 	size_window = size_map(v.map);
 	v.mlx = mlx_init();
 	if (!v.mlx)
@@ -86,7 +86,7 @@ static void	chest_checker(t_vars *v, size_t checker)
 		{
 			if (v->map[y][0][x] == 'P' && v->map[y][1][x] == 'E' && !checker)
 			{
-				write(1, "Win\n", 4);
+				write(1, "TU TU TU.....TUUUUUUUUUUUUUUUUU !\nYou win\n", 42);
 				ft_close(v);
 			}
 		}

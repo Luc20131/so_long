@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 04:36:00 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/11 13:36:09 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/15 06:52:51 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,12 +113,4 @@ void	print_content(t_vars *v, int t_x, int t_y)
 			put_pixel_img(v->tile[23], (t_x * 64) + x + 16, \
 				(t_y * 64) + y + 13, get_pixel_img(v->tile[15], x, y));
 	}
-}
-
-void	stepper(void)
-{
-	static int	step = 0;
-
-	step++;
-	ft_printf("%d\n", step);
 }

@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 05:11:53 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/11 04:09:46 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/15 07:02:04 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,5 @@ void	ft_close(t_vars *vars)
 		free(vars->mlx);
 	}
 	free_map(vars->map);
-	exit (1);
+	exit(EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:42:35 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/11 13:26:24 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/13 06:08:01 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <fcntl.h>
 # include <X11/X.h>
 # include <X11/keysym.h>
+# include <string.h>
+# include <errno.h>
 # define FT_PI 3.14159
 # define TILE_SIZE 64
 

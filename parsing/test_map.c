@@ -6,13 +6,13 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:17:45 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/07 16:25:17 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/15 16:33:14 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-int	wall_line(char *line);
+static int	wall_line(char *line, int nb_line);
 
 char	***map_tester(char	*map_path)
 {
@@ -27,17 +27,17 @@ char	***map_tester(char	*map_path)
 	nb_line = 0;
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
-		return (NULL);
+		return (write(1 ,"Error\nFile reading error", 24), NULL);
 	if (wall_checker(fd, &nb_line, &content))
-		return (perror("Error\nWall error"), NULL);
+		return (write(1, "Error\nWall error\n", 17), NULL);
 	close(fd);
 	if (content.carac != 1 || content.coins < 1 || content.exit != 1)
-		return (perror("Error\nContent Error"), NULL);
+		return (write(1, "Error\nContent Error\n", 20), NULL);
 	fd = open(map_path, O_RDONLY);
 	map = map_initializer(fd, nb_line);
 	close(fd);
 	if (map == NULL)
-		return (perror("Error\nMap Initialisation Failed"), NULL);
+		return (write(1, "Error\nMap Initialisation Failed\n", 32), NULL);
 	return (map);
 }
 
@@ -62,8 +62,8 @@ ssize_t	check_line(ssize_t check, char *line, t_content *content)
 	}
 	if (size == check && line[0] == '1' && line[size - 2] == '1')
 		return (size);
-	else
-		return (-1);
+	free(line);
+	return (-1);
 }
 
 int	wall_checker(int fd, int *nb_line, t_content *content)
@@ -77,25 +77,25 @@ int	wall_checker(int fd, int *nb_line, t_content *content)
 		return (1);
 	*nb_line += 1;
 	check = ft_strlen(line);
-	if (wall_line(line))
-		return (free(line), 1);
+	if (wall_line(line, *nb_line))
+		return (1);
 	while (line != NULL)
 	{
 		line_buffer = ft_strdup(line);
 		free(line);
 		line = get_next_line(fd);
 		if (line == NULL)
-			return (check = wall_line(line_buffer), free(line_buffer), check);
+			return (wall_line(line_buffer, *nb_line));
+		free(line_buffer);
 		*nb_line += 1;
 		check = check_line(check, line, content);
 		if (check == -1)
-			return (free(line), free(line_buffer), 1);
-		free(line_buffer);
+			return (1);
 	}
 	return (0);
 }
 
-int	wall_line(char *line)
+static int	wall_line(char *line, int nb_line)
 {
 	int	i;
 
@@ -103,6 +103,11 @@ int	wall_line(char *line)
 	while (line[i] == '1')
 		i++;
 	if (line[i] != '1' && line[i] != '\n')
+	{
+		free(line);
 		return (1);
+	}
+	if (nb_line > 1)
+		free(line);
 	return (0);
 }
