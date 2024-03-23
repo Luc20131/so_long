@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:17:45 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/17 15:30:23 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/23 14:06:30 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ static int	wall_line(char *line, int nb_line)
 	i = 0;
 	while (line[i] == '1')
 		i++;
-	if (line[i] != '1' && line[i] != '\n')
+	if (line[i] && line[i] != '1' && line[i] != '\n')
 	{
 		free(line);
 		return (1);

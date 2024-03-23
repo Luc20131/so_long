@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 04:55:38 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/29 14:35:46 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/23 14:15:45 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	wall_selector(char ***map, int y, int x)
 		return (6);
 	else if (y > 0 && x == 0 && !map[y + 2])
 		return (5);
-	else if (x > 0 && y > 0 && map[y][0][x + 1] == '\n' && map[y + 1] == NULL)
+	else if (x > 0 && y > 0 && (map[y][0][x + 1] == '\n' || map[y][0][x + 1] == '\0') \
+		&& map[y + 1] == NULL)
 		return (10);
 	else if (y > 0 && map[y][0][x + 1] == '\n' && map[y + 2] == NULL)
 		return (9);
