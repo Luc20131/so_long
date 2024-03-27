@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 05:11:53 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/15 07:02:04 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/27 18:09:29 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ unsigned int	get_pixel_img(t_data img, int x, int y)
 		+ (x * img.bits_per_pixel / 8))));
 }
 
-t_data	new_img(char *path, t_vars *v)
+t_data	new_img(char *path, t_vars *vars)
 {
 	t_data	tile;
 
-	tile.h = v->h;
-	tile.w = v->w;
-	tile.img = mlx_xpm_file_to_image(v->mlx, path, &tile.w, &tile.h);
+	tile.h = vars->h;
+	tile.w = vars->w;
+	tile.img = mlx_xpm_file_to_image(vars->mlx, path, &tile.w, &tile.h);
 	if (!tile.img)
 	{
 		tile.addr = NULL;
@@ -46,22 +46,24 @@ t_data	new_img(char *path, t_vars *v)
 	return (tile);
 }
 
-void	free_img(t_vars *v)
+void	free_img(t_vars *vars)
 {
 	size_t	i;
 
 	i = 0;
 	while (i < 23)
 	{
-		if (v->tile[i].addr)
-			mlx_destroy_image(v->mlx, v->tile[i].img);
+		if (vars->tile[i].addr)
+			mlx_destroy_image(vars->mlx, vars->tile[i].img);
 		i++;
 	}
 }
 
-void	ft_close(t_vars *vars)
+int	ft_close(t_vars *vars)
 {
 	free_img(vars);
+	if (vars->tile[23].addr)
+		mlx_destroy_image(vars->mlx, vars->tile[23].img);
 	if (vars->win && vars->mlx)
 		mlx_destroy_window(vars->mlx, vars->win);
 	if (vars->mlx)
@@ -71,4 +73,5 @@ void	ft_close(t_vars *vars)
 	}
 	free_map(vars->map);
 	exit(EXIT_SUCCESS);
+	return (0);
 }

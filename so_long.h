@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:42:35 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/13 06:08:01 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/26 17:10:47 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include <string.h>
-# include <errno.h>
 # define FT_PI 3.14159
 # define TILE_SIZE 64
 
@@ -85,12 +84,11 @@ int				move_left(char ***map, size_t *side);
 void			put_pixel_img(t_data img, int x, int y, int color);
 t_pos			size_map(char ***map);
 unsigned int	get_pixel_img(t_data img, int x, int y);
-void			ft_close(t_vars *vars);
+int				ft_close(t_vars *vars);
 void			images_for_map(t_vars *v);
 void			images_for_link(t_vars *v);
 void			stepper(void);
 void			map_formating(char ***map, size_t i, size_t y);
-int				closer(t_vars *v);
 int				checker_images(t_vars *v);
 
 #endif

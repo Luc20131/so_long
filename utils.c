@@ -6,17 +6,11 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 17:09:18 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/15 06:53:06 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 14:31:47 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	closer(t_vars *v)
-{
-	ft_close(v);
-	return (0);
-}
 
 void	print_map(char ***map, size_t layer)
 {

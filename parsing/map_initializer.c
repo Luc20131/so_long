@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/02 01:03:59 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/15 06:48:26 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 14:32:36 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	***map_initializer(int fd, int nb_line)
 	if (map == NULL)
 		return (NULL);
 	if (path_finder(map))
-		return (print_map(map, 1), NULL);
+		return (print_map(map, 1), free_map(map), NULL);
 	return (map);
 }
 
@@ -78,7 +78,7 @@ static char	***map_filler(int fd, char ***map)
 	i = 0;
 	line = get_next_line(fd);
 	if (line == NULL)
-		return (NULL);
+		return (free_map(map), NULL);
 	while (line != NULL)
 	{
 		map[i][0] = ft_strdup(line);
@@ -93,4 +93,3 @@ static char	***map_filler(int fd, char ***map)
 	}
 	return (map);
 }
-

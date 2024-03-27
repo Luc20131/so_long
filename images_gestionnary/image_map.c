@@ -6,13 +6,13 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 04:36:00 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/15 06:52:51 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/27 18:18:42 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
-void	print_tile_to_image(t_vars *v, int tile_x, int tile_y)
+void	print_tile_to_image(t_vars *vars, int tile_x, int tile_y)
 {
 	size_t	y;
 	size_t	x;
@@ -22,8 +22,8 @@ void	print_tile_to_image(t_vars *v, int tile_x, int tile_y)
 
 	sup = 0;
 	tile_size = 64;
-	tile_index = tile_selector(v->map, tile_y, tile_x);
-	if (is_big_tree(tile_x, tile_y, v->map))
+	tile_index = tile_selector(vars->map, tile_y, tile_x);
+	if (is_big_tree(tile_x, tile_y, vars->map))
 	{
 		tile_index = 13;
 		tile_size = 128;
@@ -34,27 +34,28 @@ void	print_tile_to_image(t_vars *v, int tile_x, int tile_y)
 	{
 		x = -1;
 		while (++x < tile_size)
-			put_pixel_img(v->tile[23], ((tile_x - sup) * 64) + x, ((tile_y \
-			- sup) * 64) + y, get_pixel_img(v->tile[tile_index], x, y));
+			put_pixel_img(vars->tile[23], ((tile_x - sup) * 64) + x, ((tile_y \
+			- sup) * 64) + y, get_pixel_img(vars->tile[tile_index], x, y));
 		y++;
 	}
-	print_content(v, tile_x, tile_y);
+	print_content(vars, tile_x, tile_y);
 }
 
-void	img_map_initializer(t_vars *v, char ***map)
+void	img_map_initializer(t_vars *vars, char ***map)
 {
 	size_t	x;
 	size_t	y;
 	t_pos	size_window;
 
-	size_window = size_map(v->map);
-	v->tile[23].img = mlx_new_image(v->mlx, size_window.x, size_window.y);
-	if (!v->tile[23].img)
-		ft_close(v);
-	v->tile[23].addr = mlx_get_data_addr(v->tile[23].img, \
-	&v->tile[23].bits_per_pixel, &v->tile[23].line_length, &v->tile[23].endian);
-	v->tile[23].h = size_window.y;
-	v->tile[23].w = size_window.x;
+	size_window = size_map(vars->map);
+	vars->tile[23].img = mlx_new_image(vars->mlx, size_window.x, size_window.y);
+	if (!vars->tile[23].img)
+		ft_close(vars);
+	vars->tile[23].addr = mlx_get_data_addr(vars->tile[23].img, \
+		&vars->tile[23].bits_per_pixel, &vars->tile[23].line_length, \
+		&vars->tile[23].endian);
+	vars->tile[23].h = size_window.y;
+	vars->tile[23].w = size_window.x;
 	y = 0;
 	while (map[y])
 	{
@@ -62,7 +63,7 @@ void	img_map_initializer(t_vars *v, char ***map)
 		while (map[y][0][x])
 		{
 			if (map[y][0][x] != '\n')
-				print_tile_to_image(v, x, y);
+				print_tile_to_image(vars, x, y);
 			x++;
 		}
 		y++;
@@ -86,31 +87,31 @@ int	tile_selector(char ***map, int y, int x)
 	return (wall_selector(map, y, x));
 }
 
-void	print_content(t_vars *v, int t_x, int t_y)
+void	print_content(t_vars *vars, int t_x, int t_y)
 {
 	int	y;
 	int	x;
 
 	y = -1;
-	while (++y < 40 && v->map[t_y][0][t_x] == 'C')
+	while (++y < 40 && vars->map[t_y][0][t_x] == 'C')
 	{
 		x = -1;
 		while (++x < 16)
-			put_pixel_img(v->tile[23], (t_x * 64) + x + 24, \
-				(t_y * 64) + y + 24, get_pixel_img(v->tile[14], x, y));
+			put_pixel_img(vars->tile[23], (t_x * 64) + x + 24, \
+				(t_y * 64) + y + 24, get_pixel_img(vars->tile[14], x, y));
 	}
-	while (++y < 48 && v->map[t_y][0][t_x] == 'P')
+	while (++y < 48 && vars->map[t_y][0][t_x] == 'P')
 	{
 		x = -1;
 		while (++x < 32)
-			put_pixel_img(v->tile[23], (t_x * 64) + x + 16, (t_y * 64) \
-			+ y + 8, get_pixel_img(v->tile[19 + v->link_side], x, y));
+			put_pixel_img(vars->tile[23], (t_x * 64) + x + 16, (t_y * 64) \
+			+ y + 8, get_pixel_img(vars->tile[19 + vars->link_side], x, y));
 	}
-	while (++y < 38 && v->map[t_y][0][t_x] == 'E')
+	while (++y < 38 && vars->map[t_y][0][t_x] == 'E')
 	{
 		x = -1;
 		while (++x < 32)
-			put_pixel_img(v->tile[23], (t_x * 64) + x + 16, \
-				(t_y * 64) + y + 13, get_pixel_img(v->tile[15], x, y));
+			put_pixel_img(vars->tile[23], (t_x * 64) + x + 16, \
+				(t_y * 64) + y + 13, get_pixel_img(vars->tile[15], x, y));
 	}
 }

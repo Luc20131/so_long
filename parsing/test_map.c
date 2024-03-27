@@ -6,13 +6,14 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 16:17:45 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/23 14:06:30 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/03/25 14:32:25 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../so_long.h"
 
 static int	wall_line(char *line, int nb_line);
+static int	nb_line_tester(int	*nb_line, char *line_buffer);
 
 char	***map_tester(char	*map_path)
 {
@@ -27,7 +28,7 @@ char	***map_tester(char	*map_path)
 	nb_line = 0;
 	fd = open(map_path, O_RDONLY);
 	if (fd == -1)
-		return (write(1 ,"Error\nFile reading error", 24), NULL);
+		return (write(1, "Error\nFile reading error", 24), NULL);
 	if (wall_checker(fd, &nb_line, &content))
 		return (write(1, "Error\nWall error\n", 17), NULL);
 	close(fd);
@@ -85,9 +86,9 @@ int	wall_checker(int fd, int *nb_line, t_content *content)
 		free(line);
 		line = get_next_line(fd);
 		if (line == NULL)
-			return (wall_line(line_buffer, *nb_line));
-		free(line_buffer);
+			return (nb_line_tester(nb_line, line_buffer));
 		*nb_line += 1;
+		free(line_buffer);
 		check = check_line(check, line, content);
 		if (check == -1)
 			return (1);
@@ -110,4 +111,14 @@ static int	wall_line(char *line, int nb_line)
 	if (nb_line > 1)
 		free(line);
 	return (0);
+}
+
+static int	nb_line_tester(int	*nb_line, char *line_buffer)
+{
+	if (*nb_line < 3)
+	{
+		free(line_buffer);
+		return (1);
+	}
+	return (wall_line(line_buffer, *nb_line));
 }
