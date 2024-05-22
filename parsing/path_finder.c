@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 10:10:18 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/23 17:57:43 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/05/11 09:53:54 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ t_pos	carac_finder(t_pos	pos_carac, char ***map)
 	while (map[++y])
 	{
 		x = 0;
-		while (map[y][1][x] && map[y][1][x] != 'P')
+		while (map[y][0][x] && map[y][0][x] != 'P')
 			x++;
-		if (map[y][1][x] == 'P')
+		if (map[y][0][x] == 'P')
 			break ;
 	}
 	pos_carac.x = x;

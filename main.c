@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 04:57:53 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/27 18:16:59 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/05/16 01:19:02 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,20 @@ void	check_file_error(int argc, char *argv[])
 	}
 }
 
+int	auto_refresh(t_vars *vars)
+{
+	static int	frame = 0;
+
+	if (frame <= 1000000)
+	{
+		map_refresher(vars);
+		frame = 0;
+	}
+	usleep(1000);
+	frame++;
+	return (1);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_vars	vars;
@@ -66,9 +80,12 @@ int	main(int argc, char *argv[])
 	if (checker_images(&vars))
 		ft_close(&vars);
 	img_map_initializer(&vars, vars.map);
-	mlx_put_image_to_window(vars.mlx, vars.win, vars.tile[23].img, 0, 0);
-	mlx_key_hook(vars.win, key_hook, &vars);
+	map_refresher(&vars);
+	// mlx_key_hook(vars.win, key_hook, &vars);
+	// mlx_hook(vars.win, KeyRelease, KeyReleaseMask, key_hook, &vars);
+	mlx_hook(vars.win, KeyPress, KeyPressMask, key_hook, &vars);
 	mlx_hook(vars.win, DestroyNotify, StructureNotifyMask, &ft_close, &vars);
+	//mlx_loop_hook(vars.mlx, &auto_refresh, &vars);
 	mlx_loop(vars.mlx);
 	return (0);
 }
@@ -97,26 +114,26 @@ static void	chest_checker(t_vars *vars, size_t checker)
 
 char	***map_refresher(t_vars *vars)
 {
-	size_t	x;
-	size_t	y;
-	size_t	checker;
+	size_t			x;
+	size_t			y;
+	size_t			checker;
+	static t_pos	pos = {0, 0};
+	t_pos			previous;
 
+	previous = pos;
+	pos = carac_finder(pos, vars->map);
 	checker = 0;
 	y = -1;
 	while (vars->map[++y])
 	{
 		x = -1;
 		while (vars->map[y][0][++x])
-		{
-			if (vars->map[y][1][x] == '3')
-				vars->map[y][1][x] = '2';
-			else if (vars->map[y][0][x] == 'C')
+			if (vars->map[y][0][x] == 'C')
 				checker = 1;
-		}
 	}
 	chest_checker(vars, checker);
-	mlx_destroy_image(vars->mlx, vars->tile[23].img);
-	img_map_initializer(vars, vars->map);
+	print_content(vars, pos.x, pos.y);
+	print_tile_to_image(vars, previous.x, previous.y);
 	mlx_put_image_to_window(vars->mlx, vars->win, vars->tile[23].img, 0, 0);
-	return (stepper(), vars->map);
+	return (vars->map);
 }

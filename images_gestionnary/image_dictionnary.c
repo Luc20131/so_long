@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 04:59:59 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/27 18:08:13 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/05/12 07:28:38 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,12 @@ void	images_for_map(t_vars *vars)
 	vars->w = 16;
 	vars->h = 40;
 	vars->tile[14] = new_img("img/key.xpm", vars);
+	// vars->w = 16;
+	// vars->h = 42;
+	// vars->tile[24] = new_img("img/keymid.xpm", vars);
+	// vars->w = 16;
+	// vars->h = 45;
+	// vars->tile[25] = new_img("img/keyhight.xpm", vars);
 	vars->h = 38;
 	vars->w = 32;
 	vars->tile[15] = new_img("img/chest.xpm", vars);

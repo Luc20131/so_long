@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/25 00:31:30 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/02/29 18:00:53 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/05/12 06:25:30 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	move_down(char ***map, size_t *side)
 				else
 					map[y][0][x] = '0';
 				map[y + 1][0][x] = 'P';
-				return (1);
+				return (stepper(), 1);
 			}
 		}
 	}
@@ -63,7 +63,7 @@ int	move_right(char ***map, size_t *side)
 				else
 					map[y][0][x] = '0';
 				map[y][0][x + 1] = 'P';
-				return (1);
+				return (stepper(), 1);
 			}
 		}
 	}
@@ -92,7 +92,7 @@ int	move_up(char ***map, size_t *side)
 				else
 					map[y][0][x] = '0';
 				map[y - 1][0][x] = 'P';
-				return (1);
+				return (stepper(), 1);
 			}
 		}
 	}
@@ -121,7 +121,7 @@ int	move_left(char ***map, size_t *side)
 				else
 					map[y][0][x] = '0';
 				map[y][0][x - 1] = 'P';
-				return (1);
+				return (stepper(), 1);
 			}
 		}
 	}

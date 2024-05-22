@@ -6,7 +6,7 @@
 /*   By: lrichaud <lrichaud@student.42lyon.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:42:35 by lrichaud          #+#    #+#             */
-/*   Updated: 2024/03/26 17:10:47 by lrichaud         ###   ########lyon.fr   */
+/*   Updated: 2024/05/12 07:28:55 by lrichaud         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,7 @@ void			images_for_link(t_vars *v);
 void			stepper(void);
 void			map_formating(char ***map, size_t i, size_t y);
 int				checker_images(t_vars *v);
+void	content_img_print(t_vars *vars, char ***map);
+void	print_tile_to_image(t_vars *vars, int tile_x, int tile_y);
 
 #endif
